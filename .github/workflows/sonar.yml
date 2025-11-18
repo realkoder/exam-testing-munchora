@@ -4,18 +4,18 @@ on:
   push:
     branches: [ main ]
     paths:
-      - "munchora-server-relational-db/**"
+      - "../../server/**"
   pull_request:
     branches: [ main ]
     paths:
-      - "munchora-server-relational-db/**"
+      - "../../server/**"
 
 jobs:
   sonar:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./munchora-server-relational-db
+        working-directory: ./server
 
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +27,7 @@ jobs:
         with:
           ruby-version: 3.3
           bundler-cache: true
-          working-directory: ./munchora-server-relational-db
+          working-directory: ./server
 
       - name: Install dependencies
         run: |
@@ -42,4 +42,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
-          projectBaseDir: ./munchora-server-relational-db
+          projectBaseDir: ./server

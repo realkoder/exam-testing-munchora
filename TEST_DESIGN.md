@@ -1,4 +1,4 @@
-# Test Design for munchora-server-relational-db
+# Test Design for Munchora
 
 This document outlines the design techniques and testing process for the **_Munchora_** application.
 
@@ -307,7 +307,7 @@ vulnerability [CVE-2025-61594 - URI Credential Leakage Bypass over CVE-2025-2722
 
 ## Rubocop
 
-Linting and style enforcement. Rules are defined in `./munchora-server-relational-db/.rubocop.yml`.
+Linting and style enforcement. Rules are defined in `./server/.rubocop.yml`.
 
 ```
 # analyze project
@@ -327,7 +327,7 @@ vulnerabilities, code smells, and test coverage without running the program.
 [SonarQube can be run through the use of Docker](https://medium.com/@index23/start-sonarqube-server-and-run-analyses-locally-with-docker-4550eb7112a3)
 
 ```bash
-cd munchora-server-relational-db
+cd ./server
 docker-compose -f docker-compose-sonar-qube.yml up
 ```
 
@@ -341,7 +341,7 @@ docker run \
     -v "$(pwd):/usr/src" \
     --network="host" \
     -e SONAR_HOST_URL="http://localhost:9000" \
-    -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=munchora-server-relational-db -Dsonar.sources=./ -Dsonar.test=test -Dsonar.javascript.lcov.reportPaths=test/coverage/lcov.info" \
+    -e SONAR_SCANNER_OPTS="-Dsonar.projectKey=server -Dsonar.sources=./ -Dsonar.test=test -Dsonar.javascript.lcov.reportPaths=test/coverage/lcov.info" \
     -e SONAR_TOKEN="${SONAR_TOKEN}" \
     sonarsource/sonar-scanner-cli
 ```
@@ -386,7 +386,7 @@ Create and add a table similar to this:
 
 Simplecov for test coverage analyze
 
-Defined in `./munchora-server-relational-db/spec/rails_helper.rb`
+Defined in `./server/spec/rails_helper.rb`
 
 ```ruby
 require 'simplecov'
@@ -403,5 +403,5 @@ end
 ```
 
 Just run specs `bundle exec rspec` and simplecov will also do its job - then check the coverage report after running,
-_SimpleCov_ generates an HTML report in `./munchora-server-relational-db/coverage/index.html` showing line-by-line
+_SimpleCov_ generates an HTML report in `./server/coverage/index.html` showing line-by-line
 coverage and totals.

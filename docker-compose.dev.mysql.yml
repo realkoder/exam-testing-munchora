@@ -1,0 +1,31 @@
+# ===========================================================
+#       🐳 🐳 🐳 🐳 🐳 DOCKER COMPOSE DEV 🐳 🐳 🐳 🐳 🐳
+# ===========================================================
+# docker-compose up:    docker-compose -f docker-compose.dev.yml up
+# docker-compose logs:  docker-compose -f docker-compose.dev.yml logs -f
+# docker-compose down:  docker-compose -f docker-compose.dev.yml down --rmi all --remove-orphans
+#                       // Deletes all images - JUST MAKE SURE VOLUMES WON'T BE DELETED
+#
+# Generate a mysql dump file: docker exec -i mysqldb mysqldump -u root -padmin munchora > ./munchora_dump.sql
+#
+# Interact with running docker based mysql: docker exec -it <containerID / name> mysql -u root -padmin
+
+services:
+  mysqldb:
+    container_name: mysqldb
+    image: mysql:8.0   # ✅ pin to stable version, avoid 'latest'
+    ports:
+      - "3307:3306"       # ✅ host:container port mapping
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: munchora
+      MYSQL_USER: munchora
+      MYSQL_PASSWORD: admin
+      MYSQL_LOG_BIN_TRUST_FUNCTION_CREATORS: 1
+    command: --default-authentication-plugin=mysql_native_password --log-bin-trust-function-creators=1
+    volumes:
+      - exam_testing_munchora_mysql_data:/var/lib/mysql
+
+volumes:
+  exam_testing_munchora_mysql_data:
+    name: munchora_mysql_data

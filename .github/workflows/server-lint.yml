@@ -4,22 +4,22 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "munchora-server-relational-db/app/**"
-      - "munchora-server-relational-db/config/**"
-      - "munchora-server-relational-db/lib/**"
+      - "../../server/app/**"
+      - "../../server/config/**"
+      - "../../server/lib/**"
   push:
     branches: [ "main" ]
     paths:
-      - "munchora-server-relational-db/app/**"
-      - "munchora-server-relational-db/config/**"
-      - "munchora-server-relational-db/lib/**"
+      - "../../server/app/**"
+      - "../../server/config/**"
+      - "../../server/lib/**"
 
 jobs:
   rubocop:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: munchora-server-relational-db
+        working-directory: server
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

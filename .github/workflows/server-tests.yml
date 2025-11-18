@@ -4,24 +4,24 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "munchora-server-relational-db/app/**"
-      - "munchora-server-relational-db/spec/**"
-      - "munchora-server-relational-db/db/**"
-      - "munchora-server-relational-db/config/**"
+      - "../../server/app/**"
+      - "../../server/spec/**"
+      - "../../server/db/**"
+      - "../../server/config/**"
   push:
     branches: [ "main" ]
     paths:
-      - "munchora-server-relational-db/app/**"
-      - "munchora-server-relational-db/spec/**"
-      - "munchora-server-relational-db/db/**"
-      - "munchora-server-relational-db/config/**"
+      - "../../server/app/**"
+      - "../../server/spec/**"
+      - "../../server/db/**"
+      - "../../server/config/**"
 
 jobs:
   rspec:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: munchora-server-relational-db
+        working-directory: server
     env:
       RAILS_ENV: test
     steps:

@@ -4,20 +4,20 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "munchora-server-relational-db/Gemfile"
-      - "munchora-server-relational-db/Gemfile.lock"
+      - "../../server/Gemfile"
+      - "../../server/Gemfile.lock"
   push:
     branches: [ "main" ]
     paths:
-      - "munchora-server-relational-db/Gemfile"
-      - "munchora-server-relational-db/Gemfile.lock"
+      - "../../server/Gemfile"
+      - "../../server/Gemfile.lock"
 
 jobs:
   security:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: munchora-server-relational-db
+        working-directory: server
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
