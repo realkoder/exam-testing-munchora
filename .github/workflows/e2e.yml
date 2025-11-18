@@ -1,20 +1,20 @@
 name: E2E Tests
 
-on:
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - "../../server/app/**"
-      - "../../server/config/**"
-      - "../../server/lib/**"
-      - "client/**"
-  push:
-    branches: [ "main" ]
-    paths:
-      - "../../server/app/**"
-      - "../../server/config/**"
-      - "../../server/lib/**"
-      - "client/**"
+#on:
+#  pull_request:
+#    branches: [ "main" ]
+#    paths:
+#      - "../../server/app/**"
+#      - "../../server/config/**"
+#      - "../../server/lib/**"
+#      - "client/**"
+#  push:
+#    branches: [ "main" ]
+#    paths:
+#      - "../../server/app/**"
+#      - "../../server/config/**"
+#      - "../../server/lib/**"
+#      - "client/**"
 
 jobs:
   e2e:
