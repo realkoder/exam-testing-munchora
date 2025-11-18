@@ -39,7 +39,6 @@ domains:
 - [CI pipeline](#ci-pipeline)
     - [Rubocop](#rubocop)
     - [SonarQube](#sonarqube)
-- [Risk Analysis](#risk-analysis)
 - [MISC](#misc)
 
 ---
@@ -64,7 +63,8 @@ Arturo's [Test Case template](https://github.com/arturomorarioja-ek/SD_Testing_E
 
 # System Tests
 
-Testing Munchora's system by using **Cypress** for _E-2-E tests_ and **Apache JMeter** for _performance stress testing_ to
+Testing Munchora's system by using **Cypress** for _E-2-E tests_ and **Apache JMeter** for _performance stress testing_
+to
 evaluate the application's resilience and its ability to handle multiple concurrent requests.
 
 ## Stress Performance Testing
@@ -73,7 +73,8 @@ Using Apache JMeter for setting up:
 
 **Stress Testing** &rarr; Push system beyond normal limits to find breaking points
 
-**Load testing** &rarr; Verify system performance under expected normal-to-peak load (the implementation is expecting middle input)
+**Load testing** &rarr; Verify system performance under expected normal-to-peak load (the implementation is expecting
+middle input)
 
 **Spike testing** &rarr; Test system response to sudden, massive traffic surges
 
@@ -350,41 +351,20 @@ docker run \
 
 <br>
 
-# Risk Analysis
-
-For inspiration checkout hand-ins for Risk Analysis on teams within Test room
-
-**Prob**: 1 (low), 5 (_high_)
-
-**Impact**: 1 (_low_), 5 (_high_)
-
-**Factor** = _Prob_ __*__ _Impact_
-
-| ID  | Name                        | Description                                                                                                                                             | Prob | Impact | Risk Factor | Mitigation                                                                                                                                         | Responsible           | Status Date | Follow-up Date | Status  |
-|-----|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|------|--------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------|-------------|----------------|---------|
-| R1  | **Technical & Operational** | **System Outages & Performance Issues**: The site goes down or is unusably slow. User grocery lists are lost or corrupted.                              | 4    | 4      | 16          | Implement monitoring (any bottlenecks). Horizontal/vertical scaling.                                                                               | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-| R2  | **Technical & Operational** | **Solo Project**: Munchora is unavailable due to illness, burnout, or other reasons. The project grinds to a halt.                                      | 4    | 3      | 12          | Well structured code base and architecture. Using versioning control (git), clear commit messages. _CI/CD pipeline_.                               | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-| R3  | **Technical & Operational** | **Technical Debt & Scalability**: Quick ad-hoc fixes accumulate, making the codebase unmaintainable.                                                    | 3    | 5      | 15          | Well structured code base and architecture. Using versioning control (git), clear commit messages. Coding standards and principles (DRY, SOLID).   | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-| R4  | **Security & Privacy**      | **Data Breach & Privacy Failure**: User data (emails, passwords, shopping lists) is exposed. GDPR/Privacy violation.                                    | 4    | 3      | 12          | Never store plain-text passwords. Regular dependency vulnerability scanning (brakeman). Use HTTPS. Have a clear, simple Privacy Policy.            | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-| R5  | **Security & Privacy**      | **API Key Compromise**: Keys for the AI service, database, or email service leaked -> unauthorized use and large bills.                                 | 3    | 5      | 15          | Never hardcode API keys. Use environment variables.                                                                                                | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-| R6  | **Security & Privacy**      | **Injection & XSS Attacks**: Malicious code is injected into shared lists or recipes, affecting other users.                                            | 3    | 3      | 9           | Parameterized queries for database access. Sanitize and validate all user input on the backend.                                                    | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-| R7  | **Business & Legal**        | **AI-Generated Content Liability**: AI generates a recipe that is harmful and a user gets sick.                                                         | 5    | 2      | 10          | Prominently Terms of Service and conditions: "AI-generated recipes are suggestions. only Always use your judgment regarding food safety..."        | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-| R8  | **Business & Legal**        | **Intellectual Property Infringement**: AI generates a recipe that is a near-copy of a copyrighted recipe from a famous chef or website.                | 3    | 3      | 9           | A clear Terms of Service stating users are responsible for the content they generate and that the platform is a tool, not a publisher, is crucial. | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-| R9  | **Business & Legal**        | **Monetization & Financial Failure**: Project cannot cover its costs (API fees, hosting).                                                               | 4    | 4      | 16          | Calculate precisely monthly costs. Limit user signups and recipe generations.                                                                      | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-| R10 | **Product & Market**        | **Low User Adoption / Product-Market Fit**: The app doesn't solve a real problem effectively enough to attract and retain users.                        | 5    | 5      | 25          | Talk to potential users before and during development. Prepared to pivot features based on feedback.                                               | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-| R11 | **Product & Market**        | **Scope creep - User Onboarding & UX Failure**: Munchora is confusing, too many features, and users don't understand how to use the AI or shared lists. | 3    | 4      | 12          | Build a clean, intuitive UI. Use analytics to see where users drop off.                                                                            | Alexander Christensen | 2025-11-4   | Weekly         | Initial |
-
-Create and add a table similar to this:
-
-![Risk Analysis Risk Factors](assets/risk-table-risk-factors.png)
-
----
-
-<br>
-
 # MISC
 
-Simplecov for test coverage analyze
+_Simplecov_ for test coverage analyze.
+
+Default _simplecov_ measures coverage by line coverage which can be an issue with ternary operator/one line conditionals
+`number.odd? ? "odd" : "even"`
+
+it can be set to use branch coverage instead:
+
+```ruby
+SimpleCov.start do
+  enable_coverage :branch
+end
+```
 
 Defined in `./server/spec/rails_helper.rb`
 

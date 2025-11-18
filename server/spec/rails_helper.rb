@@ -10,7 +10,7 @@ SimpleCov.start do
   # add_filter do |source_file|
   #   !source_file.filename.end_with?("app/models/user.rb", "app/controllers/api/v1/users_controller.rb")
   # end
-  add_filter %w[spec/ config/ vendor/]
+  add_filter %w[/coverage spec/ config/ vendor/ bin/ db/ log/ tmp/ public/ storage/]
 end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
