@@ -1,0 +1,38 @@
+name: Security Checks
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "munchora-server-relational-db/Gemfile"
+      - "munchora-server-relational-db/Gemfile.lock"
+  push:
+    branches: [ "main" ]
+    paths:
+      - "munchora-server-relational-db/Gemfile"
+      - "munchora-server-relational-db/Gemfile.lock"
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: munchora-server-relational-db
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4.2
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Run Brakeman
+        run: bundle exec brakeman -q -w2 # -w flag is to control what warning lvls will trigger failure - now higher than medium
+
+      - name: Run Bundler Audit
+        run: bundle exec bundler-audit check --update

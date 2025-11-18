@@ -1,0 +1,45 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "munchora-server-relational-db/**"
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "munchora-server-relational-db/**"
+
+jobs:
+  sonar:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./munchora-server-relational-db
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3
+          bundler-cache: true
+          working-directory: ./munchora-server-relational-db
+
+      - name: Install dependencies
+        run: |
+          bundle add simplecov simplecov_json_formatter
+
+      - name: Run tests and generate coverage
+        run: bundle exec rspec
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          projectBaseDir: ./munchora-server-relational-db

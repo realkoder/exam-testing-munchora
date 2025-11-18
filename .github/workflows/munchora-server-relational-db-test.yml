@@ -1,0 +1,45 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "munchora-server-relational-db/app/**"
+      - "munchora-server-relational-db/spec/**"
+      - "munchora-server-relational-db/db/**"
+      - "munchora-server-relational-db/config/**"
+  push:
+    branches: [ "main" ]
+    paths:
+      - "munchora-server-relational-db/app/**"
+      - "munchora-server-relational-db/spec/**"
+      - "munchora-server-relational-db/db/**"
+      - "munchora-server-relational-db/config/**"
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: munchora-server-relational-db
+    env:
+      RAILS_ENV: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4.2
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Setup DB
+        run: |
+          bin/rails db:create db:schema:load --trace
+
+      - name: Run RSpec
+        run: bundle exec rspec --format progress

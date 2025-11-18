@@ -1,0 +1,95 @@
+name: E2E Tests
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "munchora-server-relational-db/app/**"
+      - "munchora-server-relational-db/config/**"
+      - "munchora-server-relational-db/lib/**"
+      - "client/**"
+  push:
+    branches: [ "main" ]
+    paths:
+      - "munchora-server-relational-db/app/**"
+      - "munchora-server-relational-db/config/**"
+      - "munchora-server-relational-db/lib/**"
+      - "client/**"
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # ---------------------
+      # Setup Ruby & Rails
+      # ---------------------
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+
+      - name: Install Rails gems
+        working-directory: ./munchora-server-relational-db
+        run: bundle install
+
+      - name: Prepare Rails test DB
+        working-directory: ./munchora-server-relational-db
+        env:
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          OPENAI_API: ${{ secrets.OPENAI_API }}
+          UPSTASH_REDIS_URL: ${{ secrets.UPSTASH_REDIS_URL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          rails db:create db:migrate RAILS_ENV=test
+
+      # Start Rails server in background
+      - name: Start Rails server
+        working-directory: ./munchora-server-relational-db
+        env:
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          OPENAI_API: ${{ secrets.OPENAI_API }}
+          UPSTASH_REDIS_URL: ${{ secrets.UPSTASH_REDIS_URL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: rails server -e test -p 3000 &
+
+      # ---------------------
+      # Setup Node & Client
+      # ---------------------
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install client dependencies
+        working-directory: ./client
+        run: npm ci
+
+      - name: Start client
+        working-directory: ./client
+        run: npm run dev &
+
+      # ---------------------
+      # Wait for servers to boot
+      # ---------------------
+      - name: Wait for servers
+        run: sleep 10
+
+      # ---------------------
+      # Run Cypress
+      # ---------------------
+      - name: Install Cypress
+        working-directory: ./client
+        run: npm install --save-dev cypress
+
+      - name: Run Cypress E2E
+        working-directory: ./client
+        run: npx cypress run
