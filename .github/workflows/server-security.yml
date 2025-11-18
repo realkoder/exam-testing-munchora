@@ -3,14 +3,14 @@ name: Security Checks
 on:
   pull_request:
     branches: [ "main" ]
-#    paths:
-#      - "../../server/Gemfile"
-#      - "../../server/Gemfile.lock"
+    paths:
+      - "../../server/Gemfile"
+      - "../../server/Gemfile.lock"
   push:
     branches: [ "main" ]
-#    paths:
-#      - "../../server/Gemfile"
-#      - "../../server/Gemfile.lock"
+    paths:
+      - "../../server/Gemfile"
+      - "../../server/Gemfile.lock"
 
 jobs:
   security:
