@@ -12,7 +12,6 @@ class Recipe < ApplicationRecord
 
   accepts_nested_attributes_for :ingredients, allow_destroy: true
 
-
   validates :title, presence: true, length: { minimum: 6, maximum: 150 }, format: { with: /\A.*[A-Za-z].*\z/, message: 'must contain at least one letter' }
   validates :image_url, length: { minimum: 14, maximum: 400 }, format: URI.regexp(%w[http https]), allow_blank: true
   validates :description, presence: true, length: { maximum: 2_000 }
