@@ -1,12 +1,12 @@
 name: SonarQube Analysis
 
-#on:
-#  push:
-#    branches: [ main ]
+on:
+  push:
+    branches: [ main ]
 #    paths:
 #      - "../../server/**"
-#  pull_request:
-#    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 #    paths:
 #      - "../../server/**"
 

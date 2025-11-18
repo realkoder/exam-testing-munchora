@@ -1,15 +1,15 @@
 name: Tests
 
-#on:
-#  pull_request:
-#    branches: [ "main" ]
+on:
+  pull_request:
+    branches: [ "main" ]
 #    paths:
 #      - "../../server/app/**"
 #      - "../../server/spec/**"
 #      - "../../server/db/**"
 #      - "../../server/config/**"
-#  push:
-#    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
 #    paths:
 #      - "../../server/app/**"
 #      - "../../server/spec/**"
