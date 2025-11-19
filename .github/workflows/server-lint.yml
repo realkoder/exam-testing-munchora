@@ -4,15 +4,15 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "../../server/app/**"
-      - "../../server/config/**"
-      - "../../server/lib/**"
+      - "server/app/**"
+      - "server/config/**"
+      - "server/lib/**"
   push:
     branches: [ "main" ]
     paths:
-      - "../../server/app/**"
-      - "../../server/config/**"
-      - "../../server/lib/**"
+      - "server/app/**"
+      - "server/config/**"
+      - "server/lib/**"
 
 jobs:
   rubocop:

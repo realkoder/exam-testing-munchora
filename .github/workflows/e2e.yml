@@ -4,16 +4,16 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "../../server/app/**"
-      - "../../server/config/**"
-      - "../../server/lib/**"
+      - "server/app/**"
+      - "server/config/**"
+      - "server/lib/**"
       - "client/**"
   push:
     branches: [ "main" ]
     paths:
-      - "../../server/app/**"
-      - "../../server/config/**"
-      - "../../server/lib/**"
+      - "server/app/**"
+      - "server/config/**"
+      - "server/lib/**"
       - "client/**"
 
 jobs:

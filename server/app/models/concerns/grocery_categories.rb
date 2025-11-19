@@ -7,7 +7,7 @@ module GroceryCategories
     'cleaning 🧼',
     'condiments 🧂',
     'dairy 🥚',
-    'fish 🐟',
+      'fish 🐟',
     'frozen foods ❄️',
     'fruits 🍎',
     'grains 🌾',

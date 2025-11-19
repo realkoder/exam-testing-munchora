@@ -185,6 +185,8 @@ RSpec.describe Recipe, type: :model do
         { difficulty: 'hard', is_valid: true },
 
         # Edge cases: unexpected data type
+        { difficulty: 'Easy', is_valid: false },
+        { difficulty: 'very easy', is_valid: false },
         { difficulty: nil, is_valid: true },
         { difficulty: 1, is_valid: false },
         { difficulty: true, is_valid: false }
@@ -204,14 +206,16 @@ RSpec.describe Recipe, type: :model do
     # ==========================
     context 'servings', :servings_context do
       [
-        # Valid
-        { servings: 1, is_valid: true },
-        { servings: 10, is_valid: true },
-        { servings: 100, is_valid: true },
+        # Valid servings partition 0 - 100
+        { servings: 0, is_valid: true }, # valid lower
+        { servings: 1, is_valid: true }, # +1 from valid lower
+        { servings: 50, is_valid: true }, # equivalence partition
+        { servings: 99, is_valid: true }, # -1 from valid upper
+        { servings: 100, is_valid: true }, # valid upper
 
-        # Invalid
-        { servings: 1_000, is_valid: false },
-        { servings: 10_000, is_valid: false },
+        # Invalid servings partition > 100
+        { servings: 101, is_valid: false }, # +1
+        { servings: 10_000, is_valid: false }, # invalid equivalence partition
 
         # Edge cases: unexpected data type
         { servings: nil, is_valid: true },
