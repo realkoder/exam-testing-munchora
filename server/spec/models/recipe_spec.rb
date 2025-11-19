@@ -205,9 +205,9 @@ RSpec.describe Recipe, type: :model do
     context 'servings', :servings_context do
       [
         # Valid
-        { servings: '1', is_valid: true },
-        { servings: '10', is_valid: true },
-        { servings: '100', is_valid: true },
+        { servings: 1, is_valid: true },
+        { servings: 10, is_valid: true },
+        { servings: 100, is_valid: true },
 
         # Invalid
         { servings: 1_000, is_valid: false },
@@ -215,6 +215,7 @@ RSpec.describe Recipe, type: :model do
 
         # Edge cases: unexpected data type
         { servings: nil, is_valid: true },
+        { servings: '2', is_valid: true },
         { servings: "hey", is_valid: false },
         { servings: true, is_valid: false }
       ].each do |example|

@@ -51,43 +51,34 @@ RSpec.describe Ingredient, type: :model do
     # ==========================
     # AMOUNT VALIDATIONS
     # ==========================
-    # context 'amount', :amount_context do
-    #   [
-    #     # Invalid amount partition 0 - 14: lower boundary
-    #     { amount: '', is_valid: true }, # valid since nil is acceptable for amount
-    #     { amount: 'h', is_valid: false }, # +1 char
-    #     { amount: 'http://s.d', is_valid: false }, # equivalence partition
-    #     { amount: 'http://img.dk', is_valid: false }, # -1 char from valid lower boundary
-    #
-    #     # Valid amount partition 14-400
-    #     { amount: 'http://img.dk/', is_valid: true }, # valid lower
-    #     { amount: 'http://img.dk/1', is_valid: true }, # +1 char
-    #     { amount: 'https://munchora.pro/uploads/recipes/3r93xhue938383.jpg', is_valid: true }, # equivalence partition
-    #     { amount: "http://img.dk/uploads/#{'x' * 377}", is_valid: true }, # -1 char from valid upper
-    #     { amount: "http://img.dk/uploads/#{'x' * 378}", is_valid: true }, # valid upper
-    #
-    #     # Invalid amount partition > 400
-    #     { amount: "http://img.dk/uploads/#{'x' * 379}", is_valid: false }, # +1 char
-    #     { amount: "http://img.dk/uploads/#{'x' * 778}", is_valid: false }, # equivalence partition
-    #
-    #     # Edge cases: unexpected data type, wrong http/https URL format
-    #     { amount: nil, is_valid: true },
-    #     { amount: 1, is_valid: false },
-    #     { amount: true, is_valid: false },
-    #     { amount: 'a.com', is_valid: false },
-    #     { amount: 'invalid_url', is_valid: false },
-    #     { amount: 'http://a.co', is_valid: false },
-    #     { amount: 'htp://site.com/uploads/x.jpg', is_valid: false }
-    #   ].each do |example|
-    #     amount = example[:amount]
-    #     size_or_datatype = amount.is_a?(String) ? "length #{amount.size}" : amount.class
-    #
-    #     it "#{example[:is_valid] ? 'accepts ' : 'rejects in'}valid amount with #{size_or_datatype}" do
-    #       recipe = Recipe.new(valid_attributes.merge(amount: amount))
-    #       example[:is_valid] ? (expect(recipe).to be_valid) : (expect(recipe).to_not be_valid)
-    #     end
-    #   end
-    # end
+    context 'amount', :amount_context do
+      [
+        # Valid
+        { amount: 1, is_valid: true },
+        { amount: 10, is_valid: true },
+        { amount: 1_000, is_valid: true },
+        { amount: 9_999, is_valid: true },
+
+        # Invalid
+        { amount: 10_000, is_valid: false },
+        { amount: 100_000, is_valid: false },
+
+        # Edge cases: unexpected data type
+        { amount: nil, is_valid: false },
+        { amount: '233', is_valid: true },
+        { amount: '2_433', is_valid: true },
+        { amount: "hey", is_valid: false },
+        { amount: true, is_valid: false }
+      ].each do |example|
+        amount = example[:amount]
+        size_or_datatype = amount.is_a?(Integer) ? "value: #{amount}" : amount.class
+
+        it "#{example[:is_valid] ? 'accepts ' : 'rejects in'}valid amount with #{size_or_datatype}" do
+          recipe = Ingredient.new(valid_attributes.merge(amount: amount))
+          example[:is_valid] ? (expect(recipe).to be_valid) : (expect(recipe).to_not be_valid)
+        end
+      end
+    end
 
     # ======================================
     # CATEGORIES VALIDATIONS
