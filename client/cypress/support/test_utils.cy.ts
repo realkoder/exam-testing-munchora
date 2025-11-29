@@ -3,7 +3,7 @@ export function deleteListIfExist() {
     const deleteBtns = doc.querySelectorAll('button[cy-data="delete-list-btn"]');
 
     if (deleteBtns.length) {
-      btn = deleteBtns[0]
+      const btn = deleteBtns[0];
       cy.wrap(btn).click({force: true});
 
       cy.get('[role="dialog"]').should('be.visible').within(() => {
