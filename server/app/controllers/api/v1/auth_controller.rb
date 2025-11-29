@@ -7,7 +7,7 @@ class Api::V1::AuthController < ApplicationController
   end
 
   def google_callback
-    code = params[ :code ]
+    code = params[:code]
 
     user = Auth::GoogleAuthService.validate_code_and_get_user(code)
 
@@ -15,7 +15,7 @@ class Api::V1::AuthController < ApplicationController
     set_cookie(token)
 
     if Rails.env.production?
-      redirect_to "https://munchora.pro/home"
+      redirect_to 'https://munchora.pro/home'
     else
       redirect_to 'http://localhost:5173/home'
     end
