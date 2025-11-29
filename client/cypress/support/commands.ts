@@ -80,7 +80,7 @@ const pages = {
 Cypress.Commands.add('loadPage', (pageName: PageName) => {
   cy.intercept('GET', '/api/v1/auth/me').as('getUser');
   cy.visit(pages[pageName].url);
-  cy.wait('@getUser'); // This triggers a lot of state changes which is why we want to wait for this request to have finished
+  cy.wait('@getUser'); // This triggers a lot of state changes so important to wait for the request to finish
 });
 
 Cypress.Commands.add('checkPageLoadedCorrectly', (pageName: PageName) => {
