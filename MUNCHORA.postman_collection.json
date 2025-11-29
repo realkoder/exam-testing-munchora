@@ -1,0 +1,1510 @@
+{
+	"info": {
+		"_postman_id": "0ddf8bfc-eeb1-4683-bf0f-f1b39f8f84b0",
+		"name": "Databases-MUNCHORA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29333853"
+	},
+	"item": [
+		{
+			"name": "failing-request",
+			"item": [
+				{
+					"name": "failure-users-index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Res must contain 'error'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Unauthorized\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "failure-grocery-list-index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Res must contain 'error'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Unauthorized\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_lists",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "failure-invoice-index",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Res must contain 'error'\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.error).to.eql(\"Unauthorized\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/invoices",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "failure-non-existing-route",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/some-ranomd-url",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"some-ranomd-url"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "failure-creating-user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\n        \"first_name\": 'José',\n        \"last_name\": 'Muñoz-O\\\"Connor',\n        \"email\": 'jose@example.com',\n        \"password\": 'secure123',\n        \"password_confirmation\": 'secure123'\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "user-create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set('CUSTOMER_ID', jsonData['id'])",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\n        \"first_name\": {{FIRST_NAME}},\n        \"last_name\": {{LAST_NAME}},\n        \"email\": {{EMAIL}},\n        \"image_src\": {{IMAGE_SRC}},\n        \"bio\": {{BIO}},\n        \"password\": {{PASSWORD}},\n        \"password_confirmation\": {{PASSWORD}}\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users/upload-image",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/alexanderchristensen/Downloads/meyers_flaeskestegssandwich.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/upload-image",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"upload-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "users/delete-image",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/alexanderchristensen/Projects/projects-playground/munchora/client/public/logo.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/delete-image",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"delete-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/users/{{USER_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"{{USER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/users/{{USER_ID}}}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"{{USER_ID}}}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": {\n        \"first_name\": \"Alexander\",\n        \"last_name\": \"Christensen\",\n        \"bio\": \"cooking cooking\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users/{{USER_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users",
+								"{{USER_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "auth-login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"var jsonData = pm.response.json();",
+									"pm.environment.set('USER_ID', jsonData['user']['id'])",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": {{EMAIL}},\n    \"password\": {{PASSWORD}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "auth-logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/auth/logout?use-db={{USE_DB}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							],
+							"query": [
+								{
+									"key": "use-db",
+									"value": "{{USE_DB}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Auth / login"
+		},
+		{
+			"name": "recipe",
+			"item": [
+				{
+					"name": "recipe-index",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/recipes",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"recipes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recipe-update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"recipe\": {\n        \"_id\": \"68cfe84fe572e4ba3b9e542d\",\n        \"cook_time\": 15,\n        \"created_at\": \"2025-09-21T11:58:07.712Z\",\n        \"cuisine\": [\n            \"Mexico\",\n            \"Deli\",\n            \"YEHAHHA\"\n        ],\n        \"description\": \"THIS IS MY CHANGE twist on the classic grilled chicken sandwich, layered with a creamy, spicy Thai cashew sauce, crisp cucumber, shredded carrot, and fresh cilantro on toasted whole-grain bread. This sandwich bursts with flavor and texture making it perfect for a satisfying lunch or casual dinner. Serve with a side of lime wedges and sweet chili dipping sauce for an extra zing! 🍋🌶️\",\n        \"difficulty\": \"easy\",\n        \"image_url\": null,\n        \"ingredients\": [\n            {\n                \"amount\": 2,\n                \"category\": \"meat 🍗\",\n                \"name\": \"chicken breasts\"\n            },\n            {\n                \"amount\": 4,\n                \"category\": \"bakery 🥖\",\n                \"name\": \"whole-grain bread slices\"\n            },\n            {\n                \"amount\": 3,\n                \"category\": \"condiments 🧂\",\n                \"name\": \"roasted cashew butter\"\n            },\n            {\n                \"amount\": 2,\n                \"category\": \"condiments 🧂\",\n                \"name\": \"soy sauce\"\n            },\n            {\n                \"amount\": 1,\n                \"category\": \"fruits 🍎\",\n                \"name\": \"lime juice\"\n            },\n            {\n                \"amount\": 1,\n                \"category\": \"condiments 🧂\",\n                \"name\": \"honey\"\n            },\n            {\n                \"amount\": 100,\n                \"category\": \"vegetables 🥦\",\n                \"name\": \"fresh ginger\"\n            },\n            {\n                \"amount\": 100,\n                \"category\": \"vegetables 🥦\",\n                \"name\": \"garlic clove\"\n            },\n            {\n                \"amount\": 100,\n                \"category\": \"spices & herbs 🌶️\",\n                \"name\": \"chili flakes\"\n            },\n            {\n                \"amount\": 1,\n                \"category\": \"vegetables 🥦\",\n                \"name\": \"XOXOXOXX\"\n            },\n            {\n                \"amount\": 1,\n                \"category\": \"vegetables 🥦\",\n                \"name\": \"shredded carrot\"\n            }\n        ],\n        \"instructions\": [\n            \"In a small bowl, blend roasted cashew butter, soy sauce, lime juice, honey, grated ginger, garlic, and a pinch of chili flakes to make the Thai cashew sauce.\",\n            \"Marinate the chicken breasts in half of the cashew sauce for at least 30 minutes.\",\n            \"Preheat the grill or grill pan over medium-high heat. Grill the chicken breasts for 5-7 minutes per side, or until fully cooked and nicely charred.\",\n            \"Toast the bread slices until golden and crisp.\",\n            \"Spread the remaining cashew sauce generously on both slices of toasted bread.\",\n            \"Layer the grilled chicken, cucumber slices, shredded carrot, and fresh cilantro atop one slice.\",\n            \"Top with the other slice of bread to form a sandwich. Slice diagonally and serve immediately with lime wedges and optional sweet chili sauce on the side.\",\n            \"Enjoy the fusion of creamy, nutty, spicy, and fresh flavors in every bite!\"\n        ],\n        \"is_public\": false,\n        \"prep_time\": 10,\n        \"servings\": 2,\n        \"tags\": [\n            \"quick\",\n            \"easy\",\n            \"lunch\",\n            \"dinner\",\n            \"spicy\",\n            \"family-friendly\",\n            \"healthy\"\n        ],\n        \"title\": \"Grilled YIEYIYI Thai Cashew Chicken Sandwich 🥪🌰\",\n        \"updated_at\": \"2025-09-21T12:16:48.525Z\",\n        \"user_id\": \"68cc24ad5d69ca6f7fab4d57\",\n        \"user\": {\n            \"image_src\": \"https://via.placeholder.com/150\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/recipes/{{RECIPE_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"recipes",
+								"{{RECIPE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recipe-show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/recipes/{{RECIPE_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"recipes",
+								"{{RECIPE_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recipe-add-like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/recipes/{{RECIPE_ID}}/likes",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"recipes",
+								"{{RECIPE_ID}}",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recipe-delete-like",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/recipes/{{RECIPE_ID}}/likes",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"recipes",
+								"{{RECIPE_ID}}",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recipe-add-comment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var resData = pm.response.json();",
+									"pm.environment.set('COMMENT_ID', resData['recipe_comment']['id'])",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"comment\": {\n        \"comment\": \"The best RECIPE EVER!!\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/recipes/{{RECIPE_ID}}/comments",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"recipes",
+								"{{RECIPE_ID}}",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recipe-delete-comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/recipes/{{RECIPE_ID}}/comments/{{COMMENT_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"recipes",
+								"{{RECIPE_ID}}",
+								"comments",
+								"{{COMMENT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recipe-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/recipes/{{RECIPE_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"recipes",
+								"{{RECIPE_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "llm",
+			"item": [
+				{
+					"name": "llm-generate-recipe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var resData = pm.response.json();",
+									"pm.environment.set('RECIPE_ID', resData['recipe']['id'])",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"prompt\": \"Pancakes\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/llm/generate-recipe",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"llm",
+								"generate-recipe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "llm-update-recipe",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"prompt\": \"Add peanutbutter\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/llm/update-recipe/{{RECIPE_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"llm",
+								"update-recipe",
+								"{{RECIPE_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "feedback",
+			"item": [
+				{
+					"name": "feedback-index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "mysql",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/feedbacks",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "feedback-show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "mysql",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/feedbacks/21",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"feedbacks",
+								"21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "feedback-create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "mysql",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"feedback\": {\n        \"message\": \"Please change the UI!!!\",\n        \"name\": \"Alexander Aka Realkoder\",\n        \"email\": \"tina@example.com\",\n        \"category\": \"interface\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/feedbacks",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "feedback-delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "mysql",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/feedbacks/21",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"feedbacks",
+								"21"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "grocery-list",
+			"item": [
+				{
+					"name": "grocery-list-index",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_lists",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grocery-list-create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set('GROCERY_LIST_ID', jsonData['id'])"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grocery_list\": {\n        \"name\": \"My Shopping List\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_lists",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_lists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grocery-list-share",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_ids\": [\n        \"10d0a1bf-1e84-41fe-a95f-4b88aa30a6bf\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_lists/{{GROCERY_LIST_ID}}/share",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_lists",
+								"{{GROCERY_LIST_ID}}",
+								"share"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grocery-list-update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grocery_list\": {\n        \"name\": \"YO SUP\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_lists/{{GROCERY_LIST_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_lists",
+								"{{GROCERY_LIST_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grocery-list-update-item",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Steak\",\n    \"category\": \"meat 🍗\",\n    \"is_completed\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_lists/{{GROCERY_LIST_ID}}/update-item/27",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_lists",
+								"{{GROCERY_LIST_ID}}",
+								"update-item",
+								"27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grocery-list-add-item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item\": {\n        \"name\": \"Chicken\",\n        \"category\": \"meat 🍗\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_lists/{{GROCERY_LIST_ID}}/add-item",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_lists",
+								"{{GROCERY_LIST_ID}}",
+								"add-item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grocery-list-remove-item",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_lists/{{GROCERY_LIST_ID}}/remove-item/27",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_lists",
+								"{{GROCERY_LIST_ID}}",
+								"remove-item",
+								"27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grocery-list-unshare",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"fb033692-9c2b-4a4a-a372-a9941b836694\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_lists/{{GROCERY_LIST_ID}}/unshare",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_lists",
+								"{{GROCERY_LIST_ID}}",
+								"unshare"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grocery-list-delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_lists/{{GROCERY_LIST_ID}}",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_lists",
+								"{{GROCERY_LIST_ID}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "invoice",
+			"item": [
+				{
+					"name": "invoice-index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/invoices",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "subscription",
+			"item": [
+				{
+					"name": "subscription-index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/subscriptions",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "subscription-create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subscription\": {\n        \"subscription_plan_id\": 1\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/subscriptions",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"subscriptions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "recipe-suggestions",
+			"item": [
+				{
+					"name": "recipe-suggestion-index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/recipe_suggestions",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"recipe_suggestions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "recipe-summary",
+			"item": [
+				{
+					"name": "recipe-summary-index",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "use-db",
+								"value": "{{USE_DB}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/recipe_summary",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"recipe_summary"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "audit",
+			"item": [
+				{
+					"name": "user-audits-index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user_audits",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user_audits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grocery-list-audits-index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_list_audits",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_list_audits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "grocery-list-item-audits-index Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/grocery_list_item_audits",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"grocery_list_item_audits"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					"pm.test(\"Response is JSON and contains 'data'\", function () {",
+					"    // Check that the response has JSON content-type",
+					"    pm.response.to.have.header(\"Content-Type\");",
+					"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+					"",
+					"    // Try parsing JSON safely",
+					"    let jsonData;",
+					"    try {",
+					"        jsonData = pm.response.json();",
+					"    } catch (e) {",
+					"        pm.expect.fail(\"Response is not valid JSON\");",
+					"    }",
+					"});",
+					"",
+					"pm.test(\"Response time is less than 200ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(200);",
+					"});"
+				]
+			}
+		}
+	]
+}
