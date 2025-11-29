@@ -17,12 +17,10 @@ class Api::V1::FeedbacksController < ApplicationController
     }
   end
 
-  # GET /api/v1/feedbacks/:id
   def show
     render json: @feedback
   end
 
-  # POST /api/v1/feedbacks
   def create
     feedback = Feedback.new(feedback_params)
     if feedback.save
@@ -32,7 +30,6 @@ class Api::V1::FeedbacksController < ApplicationController
     end
   end
 
-  # DELETE /api/v1/feedbacks/:id
   def destroy
     @feedback.destroy
     head :no_content
