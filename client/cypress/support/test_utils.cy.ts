@@ -9,7 +9,7 @@ export function deleteListIfExist() {
         cy.contains('button', 'Delete').click({force: true});
       });
 
-      cy.wrap(btn).should('not.exist').then(() => {
+      cy.wrap(deleteBtns[0]).should('not.exist').then(() => {
         if (deleteBtns.length > 1) deleteListIfExist();
       });
     }
