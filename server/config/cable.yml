@@ -8,7 +8,8 @@ development:
   url: <%= ENV['UPSTASH_REDIS_URL'] %>
 
 test:
-  adapter: test
+  adapter: redis
+  url: <%= ENV['UPSTASH_REDIS_URL'] %>
 
 production:
   adapter: redis

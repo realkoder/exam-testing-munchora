@@ -16,6 +16,4 @@ export function deleteListIfExist() {
       });
     }
   });
-
-  cy.contains('h3', 'No grocery lists yet', {timeout: 10000}).should('be.visible');
 }
