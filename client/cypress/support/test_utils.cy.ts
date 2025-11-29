@@ -10,9 +10,9 @@ export function deleteListIfExist() {
         cy.contains('button', 'Delete').click({force: true});
       });
 
-      cy.wrap(btn).should('not.exist').then(() => {
-        if (deleteBtns.length > 1) deleteListIfExist();
-      });
+      cy.wait(500);
+      cy.reload();
+      if (doc.querySelectorAll('button[cy-data="delete-list-btn"]').length > 0) deleteListIfExist();
     }
   });
 }
