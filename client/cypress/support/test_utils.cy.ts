@@ -11,7 +11,7 @@ export function deleteListIfExist() {
       });
 
       cy.wait(500);
-      cy.reload();
+      cy.reload(); // This is not pretty but faced a lot of issues - now it works xD
       if (doc.querySelectorAll('button[cy-data="delete-list-btn"]').length > 0) deleteListIfExist();
     }
   });
