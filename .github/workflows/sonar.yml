@@ -2,20 +2,17 @@ name: SonarQube Analysis
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - "server/**"
+#    branches: [ main ]
+#    paths:
+#      - "server/**"
   pull_request:
-    branches: [ main ]
-    paths:
-      - "server/**"
+#    branches: [ main ]
+#    paths:
+#      - "server/**"
 
 jobs:
   sonar:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./server
 
     steps:
       - uses: actions/checkout@v4
@@ -25,15 +22,14 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.3
+          ruby-version: 3.4.2
           bundler-cache: true
           working-directory: ./server
 
-      - name: Install dependencies
-        run: |
-          bundle add simplecov simplecov_json_formatter
-
-      - name: Run tests and generate coverage
+      - name: Run tests with coverage
+        working-directory: ./server
+        env:
+          RAILS_ENV: test
         run: bundle exec rspec
 
       - name: SonarQube Scan
@@ -42,4 +38,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
-          projectBaseDir: ./server
+          projectBaseDir: server

@@ -1,14 +1,18 @@
 require 'simplecov'
 require 'simplecov_json_formatter'
-SimpleCov.formatters = [SimpleCov::Formatter::HTMLFormatter, SimpleCov::Formatter::JSONFormatter]
+
+SimpleCov.formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::JSONFormatter
+]
 SimpleCov.coverage_dir 'coverage'
 
+# HUGE ISSUES WITH SIMPLECOV differences between local and CI https://reinteractive.com/articles/tutorial-series-for-experienced-rails-developers/CI-simplecov-and-coverage-discrepancies
 SimpleCov.start 'rails' do
   # Track only the User model
   # track_files "app/models/user.rb"
-  root File.expand_path('..', __dir__)
 
-  enable_coverage :branch
+  # enable_coverage :branch
 
   # Showcasing how branch coverage works
   # add_filter do |source_file|
@@ -19,16 +23,8 @@ SimpleCov.start 'rails' do
   # add_filter do |source_file|
   #   !source_file.filename.end_with?("app/models/user.rb", "app/controllers/api/v1/users_controller.rb")
   # end
-
-  at_exit do
-    result = SimpleCov.result
-    result.files.each do |file|
-      file.instance_variable_set(:@filename, file.filename.sub(SimpleCov.root + '/', ''))
-    end
-    SimpleCov::Formatter::HTMLFormatter.new.format(result)
-    SimpleCov::Formatter::JSONFormatter.new.format(result)
-  end
 end
+
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
