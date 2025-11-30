@@ -13,6 +13,7 @@ Rails.application.configure do
   # this is usually not necessary, and can slow down your test suite. However, it's
   # recommended that you enable it in continuous integration systems to ensure eager
   # loading is working properly before deploying your code.
+
   # HUGE ISSUES WITH SIMPLECOV differences between local and CI https://reinteractive.com/articles/tutorial-series-for-experienced-rails-developers/CI-simplecov-and-coverage-discrepancies
   config.eager_load = false
 
