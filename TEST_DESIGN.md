@@ -64,8 +64,7 @@ Arturo's [Test Case template](https://github.com/arturomorarioja-ek/SD_Testing_E
 # System Tests
 
 Testing Munchora's system by using **Cypress** for _E-2-E tests_ and **Apache JMeter** for _performance stress testing_
-to
-evaluate the application's resilience and its ability to handle multiple concurrent requests.
+to evaluate the application's resilience and its ability to handle multiple concurrent requests.
 
 ## Stress Performance Testing
 
