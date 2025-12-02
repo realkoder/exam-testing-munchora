@@ -6,6 +6,7 @@ import { DeleteRecipeDialog } from '../ai-create-tab/delete-recipe-dialog';
 import { useNavigate } from 'react-router';
 import { useAtomValue } from 'jotai';
 import { curUserAtom } from '~/atoms/curUserAtom';
+import {ADMIN_USER_ID} from "~/constants/admin-constants";
 
 interface DeleteUpdateRecipeBtnsProps {
   recipe: IRecipe;
@@ -18,7 +19,7 @@ export const DeleteUpdateRecipeBtns = ({ recipe }: DeleteUpdateRecipeBtnsProps) 
 
   return (
     <>
-      {(recipe.user.id === curUser?.user?.id || curUser?.user?.email === "alexanderbtcc@gmail.com") && (
+      {(recipe.user.id === curUser?.user?.id || curUser?.user?.id === ADMIN_USER_ID) && (
         <div className=" flex justify-center space-x-2">
           <Button
             onClick={() => {

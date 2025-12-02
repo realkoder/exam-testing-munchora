@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { curUserAtom } from '~/atoms/curUserAtom';
 import { useFetch } from '~/lib/api-client';
 import type { ILoginResponse } from '~/types/user.interface';
+import {ADMIN_USER_ID} from "~/constants/admin-constants";
 
 const noAuthRoutes = ['/', '/faq', '/about', '/sign-in', '/recipe', '/privacy', '/terms', 'feedback'];
 
@@ -43,7 +44,7 @@ export default function AuthBootstrapper() {
   }, []);
 
   useEffect(() => {
-    if (location.pathname === '/admin' && curUser?.user?.email !== 'alexanderbtcc@gmail.com') {
+    if (location.pathname === '/admin' && curUser?.user?.id !== ADMIN_USER_ID) {
       navigate('/home');
       return;
     }

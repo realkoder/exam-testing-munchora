@@ -7,6 +7,7 @@ import useNotifications from '~/hooks/useNotifications';
 import useFetchGroceryLists from '~/hooks/fetching/useFetchGroceryLists';
 import { useAtomValue } from 'jotai';
 import { curUserAtom } from '~/atoms/curUserAtom';
+import {ADMIN_USER_ID} from "~/constants/admin-constants";
 
 export default function Navbar() {
   const location = useLocation();
@@ -51,7 +52,7 @@ export default function Navbar() {
           <span className={`${isActive('/about') ? 'border-black border-b' : ''} ml-2`}>About</span>
         </Button>
       </NavLink>
-      {curUser?.user?.email === 'alexanderbtcc@gmail.com' && (
+      {curUser?.user?.id === ADMIN_USER_ID && (
         <NavLink to="/admin" onClick={onClick}>
           <Button variant="ghost" className="flex items-center w-full justify-start">
             <ShieldCheck />
