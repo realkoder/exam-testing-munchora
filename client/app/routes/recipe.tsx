@@ -70,7 +70,7 @@ export function loader({ params }: Route.LoaderArgs) {
 
 export default function Recipe({ loaderData }: Route.ComponentProps) {
   const params = useParams();
-  const recipeId = Number(params.recipeId);
+  const recipeId = params.recipeId;
   const [recipe, setRecipe] = useState(loaderData);
   const [showIngredientModal, setShowIngredientModal] = useState(false);
   const [selectedIngredient, setSelectedIngredient] = useState<IIngredient>();
@@ -81,7 +81,6 @@ export default function Recipe({ loaderData }: Route.ComponentProps) {
     if (!recipe && recipeId && curUser?.status === 'SIGNED_IN') {
       (async () => {
         const recipe = await fetchData(`/recipes/${recipeId}`);
-        console.log('Recipe couldnt be rendered SSR did it CSR!', recipe);
         setRecipe(recipe);
       })();
     }
@@ -115,7 +114,9 @@ export default function Recipe({ loaderData }: Route.ComponentProps) {
           <div className="p-4 bg-secondary/50">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
-                <h1 data-cy="recipe-title" className="text-3xl font-bold text-gray-900 mb-2">{recipe?.title}</h1>
+                <h1 data-cy="recipe-title" className="text-3xl font-bold text-gray-900 mb-2">
+                  {recipe?.title}
+                </h1>
                 <p className="text-gray-600 text-lg leading-relaxed">{recipe?.description}</p>
               </div>
             </div>
@@ -217,16 +218,17 @@ export default function Recipe({ loaderData }: Route.ComponentProps) {
             </CardHeader>
             <CardContent className="space-y-4">
               {recipe?.ingredients.map((ingredient, index) => (
-                  <div
-                      key={index}
-                      onClick={() => handleIngredientClick(ingredient)}
-                      className="flex items-center p-3 rounded-lg border border-border hover:bg-secondary cursor-pointer transition-all duration-200 group"
-                  >
-                    <div className="w-2 h-2 bg-final rounded-full mr-3 flex-shrink-0"></div>
-                    <span className="text-slate-700 transition-colors">{ingredient.name} x{ingredient.amount}</span>
-                    <ShoppingCart
-                        className="h-6 w-6 text-slate-400 group-hover:text-final ml-auto opacity-0 group-hover:opacity-100 transition-all duration-200"/>
-                  </div>
+                <div
+                  key={index}
+                  onClick={() => handleIngredientClick(ingredient)}
+                  className="flex items-center p-3 rounded-lg border border-border hover:bg-secondary cursor-pointer transition-all duration-200 group"
+                >
+                  <div className="w-2 h-2 bg-final rounded-full mr-3 flex-shrink-0"></div>
+                  <span className="text-slate-700 transition-colors">
+                    {ingredient.name} x{ingredient.amount}
+                  </span>
+                  <ShoppingCart className="h-6 w-6 text-slate-400 group-hover:text-final ml-auto opacity-0 group-hover:opacity-100 transition-all duration-200" />
+                </div>
               ))}
             </CardContent>
           </Card>

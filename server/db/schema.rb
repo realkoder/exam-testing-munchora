@@ -97,7 +97,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_25_132239) do
 
   create_table "llm_usages", id: { type: :string, limit: 36, default: -> { "(uuid())" } }, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "user_id", limit: 36
-    t.string "recipe_id", limit: 36, null: false
+    t.string "recipe_id", limit: 36
     t.string "provider"
     t.string "model"
     t.text "prompt"

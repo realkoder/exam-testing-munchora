@@ -4,7 +4,7 @@ class CreateLlmUsages < ActiveRecord::Migration[8.0]
       t.string :id, limit: 36, null: false, primary_key: true
 
       t.references :user, null: true, type: :string, limit: 36, foreign_key: true
-      t.references :recipe, null: false, type: :string, limit: 36, foreign_key: true
+      t.references :recipe, null: true, type: :string, limit: 36, foreign_key: true
       t.string :provider
       t.string :model
       t.text :prompt

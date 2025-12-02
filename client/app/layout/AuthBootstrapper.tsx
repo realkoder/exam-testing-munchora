@@ -24,7 +24,6 @@ export default function AuthBootstrapper() {
 
   useEffect(() => {
     if (curUser?.status) return;
-    console.log('Checking if user is signed in by jwt cookie');
 
     (async () => {
       try {
