@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :subscriptions
   has_many :invoices
   has_many :recipe_suggestions
+  has_many :recipe_comments, dependent: :destroy
   has_many :recipe_likes, dependent: :destroy
   has_many :recipe_suggestions, dependent: :destroy
 
