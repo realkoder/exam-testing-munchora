@@ -75,6 +75,7 @@ jobs:
         run: |
           newman run exam-deliveries/api-testing/MUNCHORA.postman_collection.json \
             -e exam-deliveries/api-testing/MUNCHORA.postman_environment.json \
+            --folder "llm" \
             -r cli,junit \
             --reporter-junit-export newman/results.xml
 
