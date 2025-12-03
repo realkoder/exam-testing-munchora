@@ -14,6 +14,9 @@ SimpleCov.start 'rails' do
 
   # enable_coverage :branch
 
+  # Will not track the following for test code coverage
+  add_filter %w[app/channels app/jobs app/mailers]
+
   # Showcasing how branch coverage works
   # add_filter do |source_file|
   #   !source_file.filename.end_with?("app/controllers/api/v1/test_controller.rb")
@@ -24,7 +27,6 @@ SimpleCov.start 'rails' do
   #   !source_file.filename.end_with?("app/models/user.rb", "app/controllers/api/v1/users_controller.rb")
   # end
 end
-
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
