@@ -4,6 +4,9 @@
 
 ### Explain at least four general testing principles.
 
+![Arturo material](general-principles1.png)
+![Arturo material](general-principles2.png)
+
 **1. Testing Shows the Presence of Defects, Not Their Absence**
 
 Main goal of testing is to find failures and provide objective information about the quality of the software.
