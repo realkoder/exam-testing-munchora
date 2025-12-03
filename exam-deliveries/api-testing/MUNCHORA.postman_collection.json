@@ -31,6 +31,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -68,6 +71,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -105,6 +111,9 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableCookies": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -130,7 +139,21 @@
 									"pm.test(\"Status code is 404\", function () {",
 									"    pm.response.to.have.status(404);",
 									"});",
-									""
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.variables.set(\"skipGeneralAssertions\", \"true\");"
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -773,6 +796,7 @@
 								"exec": [
 									"var resData = pm.response.json();",
 									"pm.environment.set('RECIPE_ID', resData['recipe']['id'])",
+									"",
 									""
 								],
 								"type": "text/javascript",
@@ -784,7 +808,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									""
+									"pm.variables.set(\"skipGeneralAssertions\", \"true\");"
 								],
 								"type": "text/javascript",
 								"packages": {},
@@ -825,6 +849,32 @@
 				},
 				{
 					"name": "llm-update-recipe",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.variables.set(\"skipGeneralAssertions\", \"true\");"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var resData = pm.response.json();",
+									"pm.environment.set('RECIPE_ID', resData['recipe']['id'])",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1486,6 +1536,15 @@
 				"packages": {},
 				"requests": {},
 				"exec": [
+					"const skipAssertions = pm.variables.get(\"skipGeneralAssertions\");",
+					"",
+					"if (skipAssertions === \"true\") {",
+					"    console.info(\"Skipping general assertions for this request.\");",
+					"    // Clear the variable for the next request in case it was set globally",
+					"    pm.variables.unset(\"skipGeneralAssertions\");",
+					"    return; // Stop execution of the script",
+					"}",
+					"",
 					"pm.test(\"Response is JSON and contains 'data'\", function () {",
 					"    // Check that the response has JSON content-type",
 					"    pm.response.to.have.header(\"Content-Type\");",

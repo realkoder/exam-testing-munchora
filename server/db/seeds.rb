@@ -14,7 +14,6 @@ users = [
     last_name: "Example",
     email: "alice@example.com",
     password: "password123",
-    image_src: "https://via.placeholder.com/150",
     bio: "Loves cooking and experimenting with new recipes.",
     last_signed_in_at: nil
   },
@@ -23,7 +22,6 @@ users = [
     last_name: "Example",
     email: "bob@example.com",
     password: "password123",
-    image_src: "https://via.placeholder.com/150",
     bio: "Big fan of Italian cuisine.",
     last_signed_in_at: nil
   },
@@ -32,7 +30,6 @@ users = [
     last_name: "Example",
     email: "charlie@example.com",
     password: "password123",
-    image_src: "https://via.placeholder.com/150",
     bio: "Enjoys baking bread on weekends.",
     last_signed_in_at: nil
   },
@@ -41,7 +38,6 @@ users = [
     last_name: "Knox",
     email: "johny@knox.com",
     password: "password123",
-    image_src: "https://via.placeholder.com/150",
     bio: "Enjoys baking cakes on weekends.",
     last_signed_in_at: nil
   },
@@ -50,7 +46,6 @@ users = [
     last_name: "Dee",
     email: "mie@knox.com",
     password: "password123",
-    image_src: "https://via.placeholder.com/150",
     bio: "Enjoys baking cakes on weekends.",
     last_signed_in_at: nil
   },
@@ -59,7 +54,6 @@ users = [
     last_name: "Jackson",
     email: "jackson@knox.com",
     password: "password123",
-    image_src: "https://via.placeholder.com/150",
     bio: "Enjoys baking cakes on weekends.",
     last_signed_in_at: nil
   },
@@ -68,7 +62,6 @@ users = [
     last_name: "Lun",
     email: "marie@knox.com",
     password: "password123",
-    image_src: "https://via.placeholder.com/150",
     bio: "Enjoys baking cakes on weekends.",
     last_signed_in_at: nil
   },
@@ -77,7 +70,6 @@ users = [
     last_name: "Some",
     email: "marc@knox.com",
     password: "password123",
-    image_src: "https://via.placeholder.com/150",
     bio: "Enjoys baking cakes on weekends.",
     last_signed_in_at: nil
   }
@@ -100,7 +92,6 @@ sample_recipes = [
   {
     title: "Spaghetti Carbonara",
     description: "Classic Italian pasta dish with eggs, cheese, pancetta, and pepper.",
-    image_url: "https://example.com/spaghetti.jpg",
     instructions: [
       "Boil water in a large pot and cook spaghetti until al dente.",
       "Fry pancetta until crisp.",
@@ -120,7 +111,6 @@ sample_recipes = [
   {
     title: "Vegan Buddha Bowl",
     description: "Healthy and colorful bowl with quinoa, roasted veggies, and tahini dressing.",
-    image_url: "https://example.com/buddha_bowl.jpg",
     instructions: [
       "Cook quinoa according to package instructions.",
       "Roast a mix of vegetables in olive oil, salt, and pepper.",
@@ -139,7 +129,6 @@ sample_recipes = [
   {
     title: "Chocolate Lava Cake",
     description: "Rich chocolate cake with molten center, perfect for dessert lovers.",
-    image_url: "https://example.com/lava_cake.jpg",
     instructions: [
       "Preheat oven to 425°F (220°C).",
       "Butter and flour ramekins.",
@@ -160,7 +149,6 @@ sample_recipes = [
   {
     title: "Chicken Tikka Masala",
     description: "Spicy and creamy Indian chicken curry served with rice.",
-    image_url: "https://example.com/chicken_tikka.jpg",
     instructions: [
       "Marinate chicken in yogurt and spices for at least 1 hour.",
       "Grill or sauté chicken until cooked through.",
@@ -179,7 +167,6 @@ sample_recipes = [
   {
     title: "Caprese Salad",
     description: "Fresh Italian salad with tomatoes, mozzarella, and basil.",
-    image_url: "https://example.com/caprese_salad.jpg",
     instructions: [
       "Slice tomatoes and mozzarella cheese.",
       "Arrange on a plate alternating tomato and mozzarella slices.",
@@ -198,7 +185,6 @@ sample_recipes = [
   {
     title: "Banana Pancakes",
     description: "Fluffy pancakes with mashed bananas, perfect for breakfast.",
-    image_url: "https://example.com/banana_pancakes.jpg",
     instructions: [
       "Mash bananas in a bowl.",
       "Mix in eggs, flour, milk, and a pinch of salt.",
@@ -217,7 +203,6 @@ sample_recipes = [
   {
     title: "Beef Stir-Fry",
     description: "Quick and tasty stir-fried beef with vegetables and soy sauce.",
-    image_url: "https://example.com/beef_stirfry.jpg",
     instructions: [
       "Slice beef thinly and marinate in soy sauce, garlic, and ginger for 15 minutes.",
       "Heat oil in a wok and stir-fry beef until browned.",
@@ -236,7 +221,6 @@ sample_recipes = [
   {
     title: "Greek Salad",
     description: "Fresh Mediterranean salad with cucumbers, tomatoes, olives, and feta cheese.",
-    image_url: "https://example.com/greek_salad.jpg",
     instructions: [
       "Chop cucumbers, tomatoes, and red onion.",
       "Combine with olives and feta cheese in a bowl.",
@@ -255,7 +239,6 @@ sample_recipes = [
   {
     title: "Shrimp Tacos",
     description: "Spicy shrimp tacos with cabbage slaw and creamy sauce.",
-    image_url: "https://example.com/shrimp_tacos.jpg",
     instructions: [
       "Season shrimp with chili powder, paprika, and salt.",
       "Sauté shrimp until cooked through.",
@@ -274,7 +257,6 @@ sample_recipes = [
   {
     title: "Mushroom Risotto",
     description: "Creamy Italian risotto with sautéed mushrooms and Parmesan cheese.",
-    image_url: "https://example.com/mushroom_risotto.jpg",
     instructions: [
       "Heat butter in a pan and sauté onions until translucent.",
       "Add mushrooms and cook until soft.",
@@ -293,7 +275,6 @@ sample_recipes = [
   {
     title: "Avocado Toast",
     description: "Simple and healthy avocado toast with lemon and chili flakes.",
-    image_url: "https://example.com/avocado_toast.jpg",
     instructions: [
       "Toast bread slices until golden.",
       "Mash avocado and mix with lemon juice and salt.",
@@ -316,7 +297,6 @@ sample_recipes.each do |recipe_attrs|
     user_id: users.sample.id,
     title: recipe_attrs[:title],
     description: recipe_attrs[:description],
-    image_url: recipe_attrs[:image_url],
     instructions: recipe_attrs[:instructions],
     is_public: recipe_attrs[:is_public],
     cuisine: recipe_attrs[:cuisine],

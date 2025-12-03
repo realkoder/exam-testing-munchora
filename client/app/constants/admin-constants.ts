@@ -1,1 +1,1 @@
-export const ADMIN_USER_ID = '1c8c4cb5-90e9-4ca2-bdab-f63175cb4fad';
+export const ADMIN_USER_ID = '58be25b0-f298-4c18-802c-37a1c0a70308';
