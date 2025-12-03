@@ -898,8 +898,6 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.variables.set(\"skipGeneralAssertions\", \"true\");",
-									"",
 									"// Since the files exists local then skip for CI pipeline",
 									"const skipFlag = pm.globals.get(\"CI_SKIP\");",
 									"",
@@ -952,8 +950,6 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.variables.set(\"skipGeneralAssertions\", \"true\");",
-									"",
 									"// Since the files exists local then skip for CI pipeline",
 									"const skipFlag = pm.globals.get(\"CI_SKIP\");",
 									"",
