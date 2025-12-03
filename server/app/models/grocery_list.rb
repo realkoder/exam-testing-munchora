@@ -9,5 +9,5 @@ class GroceryList < ApplicationRecord
   has_many :grocery_list_shares, dependent: :destroy
   has_many :shared_users, through: :grocery_list_shares, source: :user
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { minimum: 1, maximum: 50 }
 end
