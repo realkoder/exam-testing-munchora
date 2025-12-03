@@ -15,7 +15,7 @@ class Api::V1::LlmController < ApplicationController
 
   rescue => e
     Rails.logger.error("chat_json error: #{e.message}")
-    render json: { error: e.message }, status: 500
+    render json: { error: e.message }, status: :internal_server_error
   end
 
   def generate_recipe_image
@@ -27,7 +27,7 @@ class Api::V1::LlmController < ApplicationController
 
   rescue => e
     Rails.logger.error("chat_json error: #{e.message}")
-    render json: { error: e.message }, status: 500
+    render json: { error: e.message }, status: :internal_server_error
   end
 
   # PUT /api/v1/update-recipe/:id
@@ -40,7 +40,7 @@ class Api::V1::LlmController < ApplicationController
 
   rescue => e
     Rails.logger.error("chat_json error: #{e.message}")
-    render json: { error: e.message }, status: 500
+    render json: { error: e.message }, status: :internal_server_error
   end
 
   private

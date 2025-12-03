@@ -60,7 +60,7 @@ class ApplicationController < ActionController::API
 
     @current_user = User.find_by(id: decoded[:user_id])
 
-    if !@current_user
+    unless @current_user
       render json: { error: 'Unauthorized' }, status: :unauthorized
     end
   rescue JWT::DecodeError, ActiveRecord::RecordNotFound
@@ -96,7 +96,7 @@ class ApplicationController < ActionController::API
   def authorize_admin!
     authenticate_user!
     unless current_user&.email == 'alexanderbtcc@gmail.com'
-      head :unauthorized unless current_user&.email == 'alexanderbtcc@gmail.com'
+      head :unauthorized
     end
   end
 
@@ -109,7 +109,7 @@ class ApplicationController < ActionController::API
       # This forces Rails to parse JSON body early
       JSON.parse(request.raw_post) unless request.raw_post.blank?
     rescue JSON::ParserError => e
-      render_error(400, 'Bad request', "Malformed JSON: #{e.message}") and return
+      render_error(400, 'Bad request', "Malformed JSON: #{e.message}") && return
     end
   end
 

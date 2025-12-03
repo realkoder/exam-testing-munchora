@@ -1,6 +1,6 @@
-class Api::V1::AuthController < ApplicationController
-  require 'google-id-token'
+require 'google-id-token'
 
+class Api::V1::AuthController < ApplicationController
   def google
     auth_url = Auth::GoogleAuthService.get_redirect_uri
     redirect_to auth_url, allow_other_host: true

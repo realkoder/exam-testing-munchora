@@ -74,7 +74,7 @@ class Api::V1::RecipesController < ApplicationController
 
   def update
     if @recipe.user_id != current_user.id && current_user&.email != ADMIN_EMAIL
-      head :forbidden and return
+      head :forbidden && return
     end
 
     Recipe.transaction do
@@ -107,7 +107,7 @@ class Api::V1::RecipesController < ApplicationController
 
   def destroy
     if @recipe.user_id != current_user.id && current_user&.email != ADMIN_EMAIL
-      head :forbidden and return
+      head :forbidden && return
     end
 
     if @recipe.image_url.present?

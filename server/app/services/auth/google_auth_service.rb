@@ -7,7 +7,7 @@ class Auth::GoogleAuthService
     end
 
   def self.get_redirect_uri
-    client_id = ENV['GOOGLE_CLIENT_ID']
+    client_id = ENV.fetch('GOOGLE_CLIENT_ID')
 
     scope = CGI.escape('email profile')
 
@@ -20,8 +20,8 @@ class Auth::GoogleAuthService
   end
 
   def self.validate_code_and_get_user(code)
-    client_id = ENV['GOOGLE_CLIENT_ID']
-    client_secret = ENV['GOOGLE_CLIENT_SECRET']
+    client_id = ENV.fetch('GOOGLE_CLIENT_ID')
+    client_secret = ENV.fetch('GOOGLE_CLIENT_SECRET')
 
     # Exchange auth code for access + ID tokens
     uri = URI('https://oauth2.googleapis.com/token')
