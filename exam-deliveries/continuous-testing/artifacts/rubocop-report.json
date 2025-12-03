@@ -1,0 +1,476 @@
+{
+  "metadata": {
+    "rubocop_version": "1.80.1",
+    "ruby_engine": "ruby",
+    "ruby_version": "3.4.2",
+    "ruby_patchlevel": "28",
+    "ruby_platform": "x86_64-linux"
+  },
+  "files": [
+    {
+      "path": "Gemfile",
+      "offenses": []
+    },
+    {
+      "path": "Rakefile",
+      "offenses": []
+    },
+    {
+      "path": "app/channels/application_cable/channel.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/channels/application_cable/connection.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/channels/notifications_channel.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/auth_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/feedbacks_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/grocery_list_audits_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/grocery_list_item_audits_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/grocery_lists_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/invoices_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/llm_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/llm_usages_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/recipe_suggestions_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/recipe_summary_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/recipes_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/subscriptions_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/test_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/user_audits_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/api/v1/users_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/application_controller.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/controllers/concerns/error_handling.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/errors/llm_usage_limit_exceeded.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/jobs/application_job.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/mailers/application_mailer.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/application_record.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/concerns/grocery_categories.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/feedback.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/grocery_list.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/grocery_list_audit.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/grocery_list_item.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/grocery_list_item_audit.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/grocery_list_share.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/ingredient.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/invoice.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/llm_usage.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/recipe.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/recipe_comment.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/recipe_like.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/recipe_suggestion.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/recipe_summary_view.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/subscription.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/subscription_plan.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/user.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/models/user_audit.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/auth/google_auth_service.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/auth/json_web_token.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/grocery_lists/creator.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/grocery_lists/item_manager.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/grocery_lists/notify_events.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/grocery_lists/sharer.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/image_upload/processor.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/llm/llm_image_service.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/llm/llm_service.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/llm/recipe_llm_instruction.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/recipes/recipes_service.rb",
+      "offenses": []
+    },
+    {
+      "path": "app/services/users/users_uploads_service.rb",
+      "offenses": []
+    },
+    {
+      "path": "config.ru",
+      "offenses": []
+    },
+    {
+      "path": "config/application.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/boot.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/environment.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/environments/development.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/environments/production.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/environments/test.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/initializers/cors.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/initializers/filter_parameter_logging.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/initializers/inflections.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/initializers/openai.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/puma.rb",
+      "offenses": []
+    },
+    {
+      "path": "config/routes.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250827142728_create_users.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250904103622_add_indexes_to_users.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250904180016_create_recipes.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250904180835_create_llm_usages.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250910062207_add_index_to_llm_usages_user_id_and_created_at.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250910141725_create_ingredients.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250911152558_create_feedbacks.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250911161522_create_grocery_lists.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250912053859_create_grocery_list_items.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250916134038_create_grocery_list_shares.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250916155125_create_subscription_plans.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250916155440_create_subscriptions.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250916160201_create_invoices.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250916161805_add_create_invoice_trigger_to_subscriptions.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250917074821_create_recipe_likes.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250917074932_create_recipe_comments.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250917155728_create_recipe_suggestions.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250917160306_add_generate_recipe_suggestions_procedure.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250917161057_add_scheduler_for_generating_recipe_suggestions.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250917191147_create_recipe_summary_view.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250925131618_create_user_audits.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250925132233_create_grocery_list_audits.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/migrate/20250925132239_create_grocery_list_item_audits.rb",
+      "offenses": []
+    },
+    {
+      "path": "db/seeds.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/factories/grocery_list_items.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/factories/grocery_lists.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/factories/ingredients.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/factories/llm_usages.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/factories/recipe_comments.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/factories/recipe_likes.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/factories/recipes.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/factories/users.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/models/grocery_list_item_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/models/grocery_list_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/models/ingredient_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/models/recipe_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/models/user_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/rails_helper.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/requests/api/v1/auth_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/requests/api/v1/grocery_lists_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/requests/api/v1/llm_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/requests/api/v1/recipes_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/requests/api/v1/test_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/requests/api/v1/users_spec.rb",
+      "offenses": []
+    },
+    {
+      "path": "spec/spec_helper.rb",
+      "offenses": []
+    }
+  ],
+  "summary": {
+    "offense_count": 0,
+    "target_file_count": 115,
+    "inspected_file_count": 115
+  }
+}

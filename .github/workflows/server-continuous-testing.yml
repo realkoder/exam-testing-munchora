@@ -162,7 +162,7 @@ jobs:
             --folder "subscription" --folder "recipe-suggestions" --folder "recipe-summary" --folder "audit" \
             -r cli,junit,htmlextra \
             --reporter-junit-export newman/results.xml \
-            --reporter-htmlextra-export newman/report.html
+            --reporter-htmlextra-export newman/api-tests-report.html
 
       # ------------------------------------------
       # PUBLISH POSTMAN/NEWMAN ARTIFACT
@@ -172,7 +172,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: newman-html-report
-          path: newman/report.html
+          path: newman/api-tests-report.html
 
   # =======================================================================
   # JOB 4: SONARQUBE ANALYSIS
