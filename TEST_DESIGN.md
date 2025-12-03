@@ -233,7 +233,7 @@ and _OAuth flows_, and highlights which combinations of field validity result in
 | Bio valid?                      | /             | /             | /             | /             | /            | /            | /            | /            |
 | **Expected Validation Context** | Manual signup | Manual signup | Manual signup | Manual signup | OAuth signup | OAuth signup | OAuth signup | OAuth signup |
 | **Actions**                     |               |               |               |               |              |              |              |              |
-| User created (valid)?           | ❌             | ❌             | ❌             | ✅             | ❌            | ❌            | ❌            | ✅            |
+| User created (valid)?           | F             | T             | F             | T             | F            | F            | F            | T            |
 
 ---
 
