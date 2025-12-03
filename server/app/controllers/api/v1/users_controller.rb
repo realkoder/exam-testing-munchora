@@ -55,6 +55,10 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
+    if params[:id] != current_user.id
+      return render json: { error: 'User could not be deleted' }, status: :unprocessable_content
+    end
+
     if current_user.image_src.present?
       Users::UsersUploadsService.delete_old_image(user: current_user)
     end

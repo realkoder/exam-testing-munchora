@@ -63,7 +63,7 @@ class Api::V1::AuthController < ApplicationController
   def set_cookie(token)
     cookies[:jwt_auth] = {
       value: token,
-      httponly: true,
+      httponly: Rails.env.production?,
       secure: Rails.env.production?,
       same_site: :lax,
       expires: 7.days.from_now

@@ -28,6 +28,7 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2
+          bundler-cache: true
 
       - name: Install Rails gems
         working-directory: ./server
@@ -73,12 +74,13 @@ jobs:
       - name: Execute Postman Tests
         run: |
           newman run exam-deliveries/api-testing/MUNCHORA.postman_collection.json \
-            -e exam-deliveries/api-testing/DATABASES-MUNCHORA.postman_environment.json \
+            -e exam-deliveries/api-testing/MUNCHORA.postman_environment.json \
             -r cli,junit \
             --reporter-junit-export newman/results.xml
 
       # Publish Test Results (Artifacts)
       - name: Publish Test Results
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: postman-test-report
