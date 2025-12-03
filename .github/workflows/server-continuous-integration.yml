@@ -1,0 +1,213 @@
+name: Server - Continuous Integration
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "server/app/**"
+      - "server/config/**"
+      - "server/spec/**"
+      - "server/db/**"
+      - "exam-deliveries/api-testing/**"
+  push:
+    branches: [ "main" ]
+    paths:
+      - "server/app/**"
+      - "server/config/**"
+      - "server/spec/**"
+      - "server/db/**"
+      - "exam-deliveries/api-testing/**"
+
+jobs:
+  # =======================================================================
+  # JOB 1: LINTING (Static Analysis)
+  # =======================================================================
+  linting:
+    continue-on-error: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ------------------------------------------
+      # Setup Ruby & Install Gems (Only needed for linting)
+      # ------------------------------------------
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4.2
+          bundler-cache: true
+          working-directory: ./server
+
+      # ------------------------------------------
+      # LINTING W. RUBOCOP
+      # ------------------------------------------
+      - name: Run RuboCop and Generate JSON Report
+        working-directory: ./server
+        run: |
+          # Use the built-in JSON formatter
+          bundle exec rubocop \
+            --format json \
+            --out rubocop-report.json
+
+      # ------------------------------------------
+      # PUBLISH RUBOCOP ARTIFACT
+      # ------------------------------------------
+      - name: Upload RuboCop JSON Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rubocop-json-report
+          path: server/rubocop-report.json
+
+  # =======================================================================
+  # JOB 2: RSPEC TESTS (Code Coverage Generation by SimpleCov)
+  # =======================================================================
+  rspec-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby & Install Gems
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4.2
+          bundler-cache: true
+          working-directory: ./server
+
+      - name: Run tests with coverage
+        working-directory: ./server
+        env:
+          RAILS_ENV: test
+        run: bundle exec rspec
+
+      # ------------------------------------------
+      # PUBLISH CODE COVERAGE ARTIFACT
+      # ------------------------------------------
+      - name: Upload RSpec JSON Coverage Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rspec-json-coverage-report
+          path: server/coverage/coverage.json
+
+  # =======================================================================
+  # JOB 3: API TESTING (Functional/Integration Testing)
+  # =======================================================================
+  api-testing:
+    needs: [ linting, rspec-tests ]
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+
+      # ------------------------------------------
+      # Setup Ruby & Rails
+      # ------------------------------------------
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4.2
+          bundler-cache: true
+          working-directory: ./server
+
+      # ------------------------------------------
+      # SETUP RAILS SERVER
+      # ------------------------------------------
+      - name: Prepare Rails test DB
+        working-directory: ./server
+        env:
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          OPENAI_API: ${{ secrets.OPENAI_API }}
+          UPSTASH_REDIS_URL: ${{ secrets.UPSTASH_REDIS_URL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          bundle exec rails db:create db:migrate RAILS_ENV=test
+          bundle exec rails db:seed RAILS_ENV=test
+
+      # Start Rails server in background
+      - name: Start Rails server
+        working-directory: ./server
+        env:
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          OPENAI_API: ${{ secrets.OPENAI_API }}
+          UPSTASH_REDIS_URL: ${{ secrets.UPSTASH_REDIS_URL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: bundle exec rails server -e test -p 3000 &
+
+      # ------------------------------------------
+      # PREPARE NODE ENV FOR POSTMAN/NEWMAN
+      # ------------------------------------------
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Install Newman
+      - name: Install Newman
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+
+
+      # Run Postman Collection
+      - name: Execute Postman Tests
+        run: |
+          newman run exam-deliveries/api-testing/MUNCHORA.postman_collection.json \
+            -e exam-deliveries/api-testing/MUNCHORA.postman_environment.json \
+            --folder "failing-request" --folder "user" --folder "auth" --folder "recipe" --folder "feedback" --folder "grocery-list" --folder "invoice" \
+            --folder "subscription" --folder "recipe-suggestions" --folder "recipe-summary" --folder "audit" \
+            -r cli,junit,htmlextra \
+            --reporter-junit-export newman/results.xml \
+            --reporter-htmlextra-export newman/report.html
+
+      # ------------------------------------------
+      # PUBLISH POSTMAN/NEWMAN ARTIFACT
+      # ------------------------------------------
+      - name: Publish Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: newman-html-report
+          path: newman/report.html
+
+  # =======================================================================
+  # JOB 4: SONARQUBE ANALYSIS
+  # =======================================================================
+  sonar:
+    needs: [ linting, rspec-tests, api-testing ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ------------------------------------------
+      # DOWNLOAD ALL ARTIFACTS
+      # ------------------------------------------
+      - name: Download LINTING Report
+        uses: actions/download-artifact@v4
+        with:
+          name: rubocop-json-report
+          path: server/
+
+      - name: Download RSPEC LCOV Report
+        uses: actions/download-artifact@v4
+        with:
+          name: rspec-json-coverage-report
+          path: server/coverage
+
+      # ------------------------------------------
+      # SONARQUBE SCAN
+      # ------------------------------------------
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          projectBaseDir: server
