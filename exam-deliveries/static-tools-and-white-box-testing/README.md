@@ -81,7 +81,13 @@ Sonarqube do also provide a cloud based solution which can be included in CI pip
 
 ![Sonarqube overview](assets/sonarqube-overview.png)
 
+_The total test coverage is displayed, which is a bit low since the controllers will be tests by Postman/Newman CI
+and not provided for SonarQube. Amount of Security Risks, Duplications, Reliability and Maintainability issues
+are also displayed._
+
 ![Sonarqube dashboard](assets/sonarqube-dashboard.png)
+
+_Shows the same stats as previous image just a bit more explanatory_
 
 <br>
 
@@ -111,6 +117,14 @@ SimpleCov.start do
   enable_coverage :branch
 end
 ```
+
+The code coverage report is an excellent tool that helps you ensure tests are efficiently distributed throughout the
+codebase. It does this by visually identifying uncovered lines and branches of logic.
+
+Code coverage reports helps designing tests that validate not only the common "happy path",
+but also critical edge cases and "negative paths"
+(like error handling, exceptions, and the else block of an if statement)
+where alternative parts of the system are executed.
 
 ![simplecov html coverage report](assets/simple-cov-html-report.png)
 
