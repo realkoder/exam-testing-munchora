@@ -15,7 +15,7 @@ on:
 #      - "server/lib/**"
 
 jobs:
-  e2e:
+  api-tests:
     runs-on: ubuntu-latest
 
     steps:
