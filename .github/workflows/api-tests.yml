@@ -75,7 +75,7 @@ jobs:
         run: |
           newman run exam-deliveries/api-testing/MUNCHORA.postman_collection.json \
             -e exam-deliveries/api-testing/MUNCHORA.postman_environment.json \
-            --folder "failing-request" --folder "user" --folder "auth" --folder "recipe" --folder "feedback" --folder "grocery-list" --folder "invoie" \
+            --folder "failing-request" --folder "user" --folder "auth" --folder "recipe" --folder "feedback" --folder "grocery-list" --folder "invoice" \
             --folder "subscription" --folder "recipe-suggestions" --folder "recipe-summary" --folder "audit" \
             -r cli,junit \
             --reporter-junit-export newman/results.xml
