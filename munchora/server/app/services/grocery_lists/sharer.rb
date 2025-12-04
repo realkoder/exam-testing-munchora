@@ -1,12 +1,10 @@
-module GroceryLists
-  class Sharer
-    def self.share(list, user_ids)
-      users_to_add = User.where(id: user_ids).where.not(id: list.shared_user_ids)
-      list.shared_users << users_to_add
-    end
+class GroceryLists::Sharer
+  def self.share(list, user_ids)
+    users_to_add = User.where(id: user_ids).where.not(id: list.shared_user_ids)
+    list.shared_users << users_to_add
+  end
 
-    def self.unshare(list, user_id)
-      list.shared_users.delete(user_id)
-    end
+  def self.unshare(list, user_id)
+    list.shared_users.delete(user_id)
   end
 end
