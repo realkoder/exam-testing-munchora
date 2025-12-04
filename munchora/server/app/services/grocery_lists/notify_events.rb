@@ -37,7 +37,6 @@ class GroceryLists::NotifyEvents
 
   def self.item_added(grocery_list, added_item)
     recipients = self.all_recipients_for_grocery_list(grocery_list)
-    puts "LOOK #{recipients}"
     self.broadcast(recipients, GROCERY_ITEM_ADDED, { grocery_list_id: grocery_list.id, item: added_item })
   end
 

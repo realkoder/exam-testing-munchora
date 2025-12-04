@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :grocery_list do
-    name { "MyString" }
+    name { "Test List" }
   end
 end

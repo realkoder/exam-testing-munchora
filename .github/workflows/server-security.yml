@@ -20,17 +20,42 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # ------------------------------------------------------------
+      # Setup Ruby & Install Gems (Only needed for linting)
+      # ------------------------------------------------------------
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.4.2
           bundler-cache: true
+          working-directory: munchora/server
 
-      - name: Install dependencies
-        run: bundle install --jobs 4 --retry 3
-
+      # ------------------------------------------------------------
+      # Brakeman for static analysis bad code / XSS / sql injections
+      # ------------------------------------------------------------
       - name: Run Brakeman
-        run: bundle exec brakeman -q -w2 # -w flag is to control what warning lvls will trigger failure - now higher than medium
+        run: bundle exec brakeman -q -o brakeman-report.json -f json -w2 # -w flag is to control what warning lvls will trigger failure - now higher than medium
 
+      # ------------------------------------------------------------
+      # PUBLISH Brakeman report
+      # ------------------------------------------------------------
+      - name: Upload Brakeman report
+        uses: actions/upload-artifact@v3
+        with:
+          name: brakeman-report
+          path: munchora/server/brakeman-report.json
+
+      # ------------------------------------------------------------
+      # Bundle audit to check for dependency vulnerabilities
+      # ------------------------------------------------------------
       - name: Run Bundler Audit
-        run: bundle exec bundler-audit check --update
+        run: bundle exec bundler-audit check --update --verbose | tee bundler-audit-report.txt
+
+      # ------------------------------------------------------------
+      # PUBLISH bundle audit report
+      # ------------------------------------------------------------
+      - name: Upload Bundler Audit report
+        uses: actions/upload-artifact@v3
+        with:
+          name: bundler-audit-report
+          path: munchora/server/bundler-audit-report.txt

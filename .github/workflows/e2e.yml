@@ -23,18 +23,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # ---------------------
-      # Setup Ruby & Rails
-      # ---------------------
+      # ------------------------------------------
+      # Setup Ruby & Install Gems (Only needed for linting)
+      # ------------------------------------------
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.2
+          ruby-version: 3.4.2
           bundler-cache: true
-
-      - name: Install Rails gems
-        working-directory: munchora/server
-        run: bundle install
+          working-directory: munchora/server
 
       - name: Prepare Rails test DB
         working-directory: munchora/server
