@@ -97,7 +97,7 @@ jobs:
       # ---------------------------------------------------
       - name: Upload Cypress Artifacts
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-artifacts
           path: |
@@ -109,7 +109,7 @@ jobs:
       # ---------------------------------------------------
       - name: Upload Rails Logs
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rails-test-logs
           path: munchora/server/log/test.log
