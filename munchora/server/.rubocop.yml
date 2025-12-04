@@ -7,7 +7,7 @@ inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 # Layout/SpaceInsideArrayLiteralBrackets:
 #   Enabled: false
 
-Style/SpaceInsideArrayLiteralBrackets:
+Layout/SpaceInsideArrayLiteralBrackets:
   EnforcedStyle: no_space
 
 Style/StringLiterals:

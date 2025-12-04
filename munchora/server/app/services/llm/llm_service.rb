@@ -89,11 +89,11 @@ class Llm::LlmService
     Recipe.transaction do
       if validated_recipe['ingredients']
         # Remove old ingredients
-        recipe.ingredients.destroy_all
+        recipe.ingredients.delete_all
 
         # Build new ingredients
         validated_recipe['ingredients'].each do |ingredient|
-          recipe.ingredients.build(
+          recipe.ingredients.create(
             name: ingredient['name'],
             category: ingredient['category'],
             amount: ingredient['amount']

@@ -15,6 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../munchora/server/features" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../munchora/server/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../munchora/server/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../munchora/server" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/.bundle" />
       <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/components" />
       <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/log" />
