@@ -40,7 +40,7 @@ jobs:
       # PUBLISH Brakeman report
       # ------------------------------------------------------------
       - name: Upload Brakeman report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: brakeman-report
           path: munchora/server/brakeman-report.json
@@ -55,7 +55,7 @@ jobs:
       # PUBLISH bundle audit report
       # ------------------------------------------------------------
       - name: Upload Bundler Audit report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bundler-audit-report
           path: munchora/server/bundler-audit-report.txt

@@ -44,7 +44,7 @@ jobs:
           UPSTASH_REDIS_URL: ${{ secrets.UPSTASH_REDIS_URL }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
         run: |
-          rails db:create db:migrate RAILS_ENV=test
+          bundle exec rails db:create db:migrate RAILS_ENV=test
 
       # Start Rails server in background
       - name: Start Rails server
@@ -57,7 +57,7 @@ jobs:
           OPENAI_API: ${{ secrets.OPENAI_API }}
           UPSTASH_REDIS_URL: ${{ secrets.UPSTASH_REDIS_URL }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-        run: rails server -e test -p 3000 &
+        run: bundle exec rails server -e test -p 3000 &
 
       # ---------------------
       # Setup Node & Client
