@@ -23,9 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # ------------------------------------------
+      # ----------------------------------------------------------------
       # Setup Ruby & Install Gems (Only needed for linting)
-      # ------------------------------------------
+      # ----------------------------------------------------------------
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -59,9 +59,9 @@ jobs:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
         run: bundle exec rails server -e test -p 3000 &
 
-      # ---------------------
+      # ---------------------------------------------------
       # Setup Node & Client
-      # ---------------------
+      # ---------------------------------------------------
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -75,15 +75,15 @@ jobs:
         working-directory: munchora/client
         run: npm run dev &
 
-      # ---------------------
+      # ---------------------------------------------------
       # Wait for servers to boot
-      # ---------------------
+      # ---------------------------------------------------
       - name: Wait for servers
         run: sleep 10
 
-      # ---------------------
+      # ---------------------------------------------------
       # Run Cypress
-      # ---------------------
+      # ---------------------------------------------------
       - name: Install Cypress
         working-directory: munchora/client
         run: npm install --save-dev cypress
@@ -91,3 +91,25 @@ jobs:
       - name: Run Cypress E2E
         working-directory: munchora/client
         run: npx cypress run
+
+      # ---------------------------------------------------
+      # PUBLISH Cypress videos and screenshots
+      # ---------------------------------------------------
+      - name: Upload Cypress Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-artifacts
+          path: |
+            munchora/client/cypress/videos
+            munchora/client/cypress/screenshots
+
+      # ---------------------------------------------------
+      # PUBLISH Rails test logs
+      # ---------------------------------------------------
+      - name: Upload Rails Logs
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: rails-test-logs
+          path: munchora/server/log/test.log
