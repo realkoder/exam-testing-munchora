@@ -46,7 +46,7 @@ jobs:
           # Use the built-in JSON formatter
           bundle exec rubocop \
             --format json \
-            --out rubocop-report.json
+            --out rubocop-report.json --fail-level error
 
       # ------------------------------------------
       # PUBLISH RUBOCOP ARTIFACT

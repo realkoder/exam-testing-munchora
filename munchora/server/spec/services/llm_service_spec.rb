@@ -239,7 +239,6 @@ RSpec.describe Llm::LlmService, type: :service do
       it 'updates recipe attributes' do
         recipe = service.update_recipe(prompt: 'Make it easier', recipe: existing_recipe)
 
-        recipe.ingredients.each {|ing| puts "ingrdient name: #{ing.name}"}
         expect(recipe.title).to eq('Updated Spaghetti Carbonara')
         expect(recipe.description).to eq('Updated description')
         expect(recipe.difficulty).to eq('easy')
