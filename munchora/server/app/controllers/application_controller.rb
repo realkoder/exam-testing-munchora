@@ -67,6 +67,7 @@ class ApplicationController < ActionController::API
     render json: { error: 'Unauthorized' }, status: :unauthorized
   end
 
+  # Do not return but accepts user is unauthorized
   def authenticate_user_or_nil
     token = cookies[:jwt_auth]
 

@@ -4,17 +4,17 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "server/app/**"
-      - "server/config/**"
-      - "server/lib/**"
-      - "client/**"
+      - "munchora/server/app/**"
+      - "munchora/server/config/**"
+      - "munchora/server/lib/**"
+      - "munchora/client/**"
   push:
     branches: [ "main" ]
     paths:
-      - "server/app/**"
-      - "server/config/**"
-      - "server/lib/**"
-      - "client/**"
+      - "munchora/server/app/**"
+      - "munchora/server/config/**"
+      - "munchora/server/lib/**"
+      - "munchora/client/**"
 
 jobs:
   e2e:
@@ -33,11 +33,11 @@ jobs:
           bundler-cache: true
 
       - name: Install Rails gems
-        working-directory: ./server
+        working-directory: munchora/server
         run: bundle install
 
       - name: Prepare Rails test DB
-        working-directory: ./server
+        working-directory: munchora/server
         env:
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
@@ -51,7 +51,7 @@ jobs:
 
       # Start Rails server in background
       - name: Start Rails server
-        working-directory: ./server
+        working-directory: munchora/server
         env:
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
@@ -71,11 +71,11 @@ jobs:
           node-version: 20
 
       - name: Install client dependencies
-        working-directory: ./client
+        working-directory: munchora/client
         run: npm ci
 
       - name: Start client
-        working-directory: ./client
+        working-directory: munchora/client
         run: npm run dev &
 
       # ---------------------
@@ -88,9 +88,9 @@ jobs:
       # Run Cypress
       # ---------------------
       - name: Install Cypress
-        working-directory: ./client
+        working-directory: munchora/client
         run: npm install --save-dev cypress
 
       - name: Run Cypress E2E
-        working-directory: ./client
+        working-directory: munchora/client
         run: npx cypress run

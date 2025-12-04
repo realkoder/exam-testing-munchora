@@ -11,18 +11,18 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../server">
-      <sourceFolder url="file://$MODULE_DIR$/../../server/features" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../server/spec" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../server/test" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/../../server/.bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/../../server/components" />
-      <excludeFolder url="file://$MODULE_DIR$/../../server/log" />
-      <excludeFolder url="file://$MODULE_DIR$/../../server/public/packs" />
-      <excludeFolder url="file://$MODULE_DIR$/../../server/public/system" />
-      <excludeFolder url="file://$MODULE_DIR$/../../server/tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/../../server/vendor/bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/../../server/vendor/cache" />
+    <content url="file://$MODULE_DIR$/../../munchora/server">
+      <sourceFolder url="file://$MODULE_DIR$/../../munchora/server/features" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../munchora/server/spec" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../munchora/server/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/.bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/components" />
+      <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/log" />
+      <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/public/packs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/public/system" />
+      <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/vendor/bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../munchora/server/vendor/cache" />
     </content>
     <orderEntry type="jdk" jdkName="rbenv: 3.4.2" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

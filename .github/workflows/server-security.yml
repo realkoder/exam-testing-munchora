@@ -4,18 +4,18 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "server/**"
+      - "munchora/server/**"
   push:
     branches: [ "main" ]
     paths:
-      - "server/**"
+      - "munchora/server/**"
 
 jobs:
   security:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: server
+        working-directory: munchora/server
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

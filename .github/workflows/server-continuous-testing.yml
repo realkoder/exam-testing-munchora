@@ -4,18 +4,17 @@ on:
   pull_request:
     branches: [ "main" ]
     paths:
-      - "server/app/**"
-      - "server/config/**"
-      - "server/spec/**"
-      - "server/db/**"
+      - "munchora/server/app/**"
+      - "munchora/server/config/**"
+      - "munchora/server/db/**"
       - "exam-deliveries/api-testing/**"
   push:
     branches: [ "main" ]
     paths:
-      - "server/app/**"
-      - "server/config/**"
-      - "server/spec/**"
-      - "server/db/**"
+      - "munchora/server/app/**"
+      - "munchora/server/config/**"
+      - "munchora/server/spec/**"
+      - "munchora/server/db/**"
       - "exam-deliveries/api-testing/**"
 
 jobs:
@@ -36,13 +35,13 @@ jobs:
         with:
           ruby-version: 3.4.2
           bundler-cache: true
-          working-directory: ./server
+          working-directory: munchora/server
 
       # ------------------------------------------
       # LINTING W. RUBOCOP
       # ------------------------------------------
       - name: Run RuboCop and Generate JSON Report
-        working-directory: ./server
+        working-directory: munchora/server
         run: |
           # Use the built-in JSON formatter
           bundle exec rubocop \
@@ -56,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rubocop-json-report
-          path: server/rubocop-report.json
+          path: munchora/server/rubocop-report.json
 
   # =======================================================================
   # JOB 2: RSPEC TESTS (Code Coverage Generation by SimpleCov)
@@ -71,10 +70,10 @@ jobs:
         with:
           ruby-version: 3.4.2
           bundler-cache: true
-          working-directory: ./server
+          working-directory: munchora/server
 
       - name: Run tests with coverage
-        working-directory: ./server
+        working-directory: munchora/server
         env:
           RAILS_ENV: test
         run: bundle exec rspec
@@ -86,7 +85,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: rspec-json-coverage-report
-          path: server/coverage/coverage.json
+          path: munchora/server/coverage/coverage.json
 
   # =======================================================================
   # JOB 3: API TESTING (Functional/Integration Testing)
@@ -107,13 +106,13 @@ jobs:
         with:
           ruby-version: 3.4.2
           bundler-cache: true
-          working-directory: ./server
+          working-directory: munchora/server
 
       # ------------------------------------------
       # SETUP RAILS SERVER
       # ------------------------------------------
       - name: Prepare Rails test DB
-        working-directory: ./server
+        working-directory: munchora/server
         env:
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
@@ -128,7 +127,7 @@ jobs:
 
       # Start Rails server in background
       - name: Start Rails server
-        working-directory: ./server
+        working-directory: munchora/server
         env:
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
@@ -193,13 +192,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: rubocop-json-report
-          path: server/
+          path: munchora/server/
 
       - name: Download RSPEC LCOV Report
         uses: actions/download-artifact@v4
         with:
           name: rspec-json-coverage-report
-          path: server/coverage
+          path: munchora/server/coverage
 
       # ------------------------------------------
       # SONARQUBE SCAN
@@ -210,4 +209,4 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
-          projectBaseDir: server
+          projectBaseDir: munchora/server
